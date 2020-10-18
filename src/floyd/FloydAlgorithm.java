@@ -5,11 +5,11 @@ import java.util.Arrays;
 public class FloydAlgorithm {
 
 	public static void main(String[] args) {
-		// floydËã·¨£¬¸¥ÂåÒÁµÂËã·¨
+		// floydç®—æ³•ï¼Œå¼—æ´›ä¼Šå¾·ç®—æ³•
 		
-		//´´½¨¶¥µãÊı×é
+		//åˆ›å»ºé¡¶ç‚¹æ•°ç»„
 		char[] vertex = {'A','B','C','D','E','F','G'};
-		//´´½¨Áã½×¾ØÕó
+		//åˆ›å»ºé›¶é˜¶çŸ©é˜µ
 		int[][] matrix = new int[vertex.length][vertex.length];
 		final int N = 65535;
 		matrix[0] = new int[] {0, 5, 7, N, N, N, 2};
@@ -20,11 +20,11 @@ public class FloydAlgorithm {
 		matrix[5] = new int[] {N, N, N, 4, 5, 0, 6};
 		matrix[6] = new int[] {2, 3, N, N, 4, 6, 0};
 		
-		//´´½¨Graph¶ÔÏó
+		//åˆ›å»ºGraphå¯¹è±¡
 		Graph graph = new Graph(vertex.length, matrix, vertex);
-		//µ÷ÓÃ¸¥ÂåÒÁµÂËã·¨
+		//è°ƒç”¨å¼—æ´›ä¼Šå¾·ç®—æ³•
 		graph.floyd();
-		//ÏÔÊ¾
+		//æ˜¾ç¤º
 		graph.show();
 	}
 
@@ -34,64 +34,64 @@ public class FloydAlgorithm {
 
 
 
-//´´½¨Í¼
+//åˆ›å»ºå›¾
 class Graph{
-	private char[]  vertex;//´æ·Å¶¥µãµÄÊı×é
-	private int[][] dis;//±£´æ´Ó¸÷¸ö¶¥µã³ö·¢µ½ÆäËû¶¥µãµÄ¾àÀë£¬×îºóµÄ½á¹û¾ÍÊÇÕâ¸öÊı×é
-	private int[][] pre;//±£´æµ½´ïÄ¿±ê¶¥µãµÄÇ°Çı¶¥µã
+	private char[]  vertex;//å­˜æ”¾é¡¶ç‚¹çš„æ•°ç»„
+	private int[][] dis;//ä¿å­˜ä»å„ä¸ªé¡¶ç‚¹å‡ºå‘åˆ°å…¶ä»–é¡¶ç‚¹çš„è·ç¦»ï¼Œæœ€åçš„ç»“æœå°±æ˜¯è¿™ä¸ªæ•°ç»„
+	private int[][] pre;//ä¿å­˜åˆ°è¾¾ç›®æ ‡é¡¶ç‚¹çš„å‰é©±é¡¶ç‚¹
 	
-	//¹¹ÔìÆ÷
+	//æ„é€ å™¨
 	/**
-	 * ¹¹ÔìÆ÷
-	 * @param lenght	´óĞ¡
-	 * @param matrix	ÁÚ½Ó¾ØÕó
-	 * @param vertex	¶¥µãÊı×é
+	 * æ„é€ å™¨
+	 * @param lenght	å¤§å°
+	 * @param matrix	é‚»æ¥çŸ©é˜µ
+	 * @param vertex	é¡¶ç‚¹æ•°ç»„
 	 */
 	public Graph(int lenght, int[][] matrix, char[] vertex) {
 		this.vertex = vertex;
 		this.dis = matrix;
 		this.pre = new int[lenght][lenght];
 		
-		//¶ÔpreÊı×é½øĞĞ³õÊ¼»¯£¬pre±£´æµ½´ïÄ¿±ê¶¥µãµÄÇ°Çı¶¥µã
+		//å¯¹preæ•°ç»„è¿›è¡Œåˆå§‹åŒ–ï¼Œpreä¿å­˜åˆ°è¾¾ç›®æ ‡é¡¶ç‚¹çš„å‰é©±é¡¶ç‚¹
 		for(int i =0; i < lenght; i++) {
 			Arrays.fill(pre[i], i);
 		}
 	}
 	
-	//ÏÔÊ¾preÊı×éºÍdisÊı×é
+	//æ˜¾ç¤ºpreæ•°ç»„å’Œdisæ•°ç»„
 	public void show() {
-		//ÎªÁËÏÔÊ¾·½±ãÔÄ¶Á£¬ÕâÀïĞ´µÃ±È½ÏÂé·³
+		//ä¸ºäº†æ˜¾ç¤ºæ–¹ä¾¿é˜…è¯»ï¼Œè¿™é‡Œå†™å¾—æ¯”è¾ƒéº»çƒ¦
 		
-		//¶¥µãÊı×é
+		//é¡¶ç‚¹æ•°ç»„
 		char[] vertex = {'A','B','C','D','E','F','G'};
 		for(int k = 0; k < dis.length; k++) {
-			//ÏÈpreÊı×éÊä³öµÄÒ»ĞĞÊı¾İ
+			//å…ˆpreæ•°ç»„è¾“å‡ºçš„ä¸€è¡Œæ•°æ®
 			for(int i = 0; i < dis.length; i++) {
 				System.out.print(vertex[pre[k][i]] + " ");
 			}
 			System.out.println();
 			
-			//Êä³ödisÊı×éµÄÒ»ĞĞÊı¾İ
+			//è¾“å‡ºdisæ•°ç»„çš„ä¸€è¡Œæ•°æ®
 			for(int i = 0; i < dis.length; i++) {
-				System.out.print("£¨"+ vertex[k] + "µ½" + vertex[i] + "×î¶ÌÂ·¾¶ÊÇ" + dis[k][i] +"£©");
+				System.out.print("ï¼ˆ"+ vertex[k] + "åˆ°" + vertex[i] + "æœ€çŸ­è·¯å¾„æ˜¯" + dis[k][i] +"ï¼‰");
 			}
 			System.out.println();
 			System.out.println();
 		}
 	}
 	
-	//¸¥ÂåÒÁµÂËã·¨
+	//å¼—æ´›ä¼Šå¾·ç®—æ³•
 	public void floyd() {
-		int len = 0;// ±äÁ¿±£´æ¾àÀë
-		//¶ÔÖ®¼ä¶¥µã±éÀú£¬kÊÇÖĞ¼ä¶¥µãµÄÏÂ±ê
+		int len = 0;// å˜é‡ä¿å­˜è·ç¦»
+		//å¯¹ä¹‹é—´é¡¶ç‚¹éå†ï¼Œkæ˜¯ä¸­é—´é¡¶ç‚¹çš„ä¸‹æ ‡
 		for(int k = 0; k < dis.length; k++) {
-			//´Ói¶¥µã¿ªÊ¼³ö·¢[A£¬B£¬C£¬D£¬E£¬F£¬G]
+			//ä»ié¡¶ç‚¹å¼€å§‹å‡ºå‘[Aï¼ŒBï¼ŒCï¼ŒDï¼ŒEï¼ŒFï¼ŒG]
 			for(int i = 0; i < dis.length; i++) {
 				for(int j = 0; j < dis.length; j++) {
-					len = dis[i][k] + dis[k][j];//´Ói¶¥µã³ö·¢£¬½á¹ûk¶¥µã£¬µ½´ïj¶¥µãµÄ¾àÀë
-					if(len < dis[i][j]) {//Èç¹û¾àÀë¸ü¶Ì
-						dis[i][j] = len;//¸üĞÂ¾àÀë
-						pre[i][j] = pre[k][j];//¸üĞÂÇ°Çı¶¥µã
+					len = dis[i][k] + dis[k][j];//ä»ié¡¶ç‚¹å‡ºå‘ï¼Œç»“æœké¡¶ç‚¹ï¼Œåˆ°è¾¾jé¡¶ç‚¹çš„è·ç¦»
+					if(len < dis[i][j]) {//å¦‚æœè·ç¦»æ›´çŸ­
+						dis[i][j] = len;//æ›´æ–°è·ç¦»
+						pre[i][j] = pre[k][j];//æ›´æ–°å‰é©±é¡¶ç‚¹
 					}
 					
 				}

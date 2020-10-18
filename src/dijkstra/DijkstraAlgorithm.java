@@ -5,14 +5,14 @@ import java.util.Arrays;
 public class DijkstraAlgorithm {
 
 	public static void main(String[] args) {
-		// µÏ½ÜË¹ÌØÀ­Ëã·¨£¨×î¶ÌÂ·¾¶Ëã·¨£¬¹ã¶ÈÓÅÏÈ£©
+		// è¿ªæ°æ–¯ç‰¹æ‹‰ç®—æ³•ï¼ˆæœ€çŸ­è·¯å¾„ç®—æ³•ï¼Œå¹¿åº¦ä¼˜å…ˆï¼‰
 		
-		//¶¥µã
+		//é¡¶ç‚¹
 		char[] vertex = {'A','B','C','D','E','F','G'};
 		
-		//ÁÚ½Ó¾ØÕó
+		//é‚»æ¥çŸ©é˜µ
 		int[][] matrix = new int[vertex.length][vertex.length];
-		final int N = 65535;//½Ï´óµÄÂ·³Ì£¬±íÊ¾²»Í¨Â·
+		final int N = 65535;//è¾ƒå¤§çš„è·¯ç¨‹ï¼Œè¡¨ç¤ºä¸é€šè·¯
 		matrix[0] = new int[] {N, 5, 7, N, N, N, 2};
 		matrix[1] = new int[] {5, N, N, 9, N, N, 3};
 		matrix[2] = new int[] {7, N, N, N, 8, N, N};
@@ -21,13 +21,13 @@ public class DijkstraAlgorithm {
 		matrix[5] = new int[] {N, N, N, 4, 5, N, 6};
 		matrix[6] = new int[] {2, 3, N, N, 4, 6, N};
 		
-		//´´½¨Í¼Graph¶ÔÏó
+		//åˆ›å»ºå›¾Graphå¯¹è±¡
 		Graph graph = new Graph(vertex, matrix);
 		
-		//Êä³öÍ¼µÄÁã½×¾ØÕó
+		//è¾“å‡ºå›¾çš„é›¶é˜¶çŸ©é˜µ
 		graph.showGraph();
 		
-		//²âÊÔµÏ½ÜË¹ÌØÀ­Ëã·¨
+		//æµ‹è¯•è¿ªæ°æ–¯ç‰¹æ‹‰ç®—æ³•
 		graph.dsj(6);
 		
 		graph.showDijkstra();
@@ -39,58 +39,58 @@ public class DijkstraAlgorithm {
 
 
 
-//Í¼Àà
+//å›¾ç±»
 class Graph{
-	private char[] vertex;//¶¥µãÊı×é
-	private int[][] matrix;//ÁÚ½Ó¾ØÕó
-	private VisitedVertex vv;//ÒÑ¾­·ÃÎÊµÄ¶¥µãµÄ¼¯ºÏ
+	private char[] vertex;//é¡¶ç‚¹æ•°ç»„
+	private int[][] matrix;//é‚»æ¥çŸ©é˜µ
+	private VisitedVertex vv;//å·²ç»è®¿é—®çš„é¡¶ç‚¹çš„é›†åˆ
 	
-	//¹¹ÔìÆ÷
+	//æ„é€ å™¨
 	public Graph(char[] vertex, int[][] matrix) {
 		this.vertex = vertex;
 		this.matrix = matrix;
 	}
 	
-	//ÏÔÊ¾½á¹û
+	//æ˜¾ç¤ºç»“æœ
 	public void showDijkstra() {
 		vv.show();
 	}
 	
-	//ÏÔÊ¾Í¼
+	//æ˜¾ç¤ºå›¾
 	public void showGraph() {
 		for(int[] link: matrix) {
 			System.out.println(Arrays.toString(link));
 		}
 	}
 	
-	//µÏ½ÜË¹ÌØÀ­Ëã·¨
+	//è¿ªæ°æ–¯ç‰¹æ‹‰ç®—æ³•
 	/**
-	 * µÏ½ÜË¹ÌØÀ­Ëã·¨
-	 * @param index		³ö·¢¶¥µãµÄÏÂ±ê
+	 * è¿ªæ°æ–¯ç‰¹æ‹‰ç®—æ³•
+	 * @param index		å‡ºå‘é¡¶ç‚¹çš„ä¸‹æ ‡
 	 */
 	public void dsj(int index) {
 		vv = new VisitedVertex(vertex.length, index);
-		update(index);//¸üĞÂindex¶¥µãµ½ÖÜÎ§¶¥µãµÄ¾àÀëºÍÇ°Çı¶¥µã
+		update(index);//æ›´æ–°indexé¡¶ç‚¹åˆ°å‘¨å›´é¡¶ç‚¹çš„è·ç¦»å’Œå‰é©±é¡¶ç‚¹
 		
 		for(int j = 1; j < vertex.length; j++) {
-			index = vv.updateArr();//Ñ¡Ôñ¾àÀë×î½üµÄÏÂÒ»¸öĞÂµÄ·ÃÎÊ¶¥µã
-			update(index);//¸üĞÂindex¶¥µãµ½ÖÜÎ§¶¥µãµÄ¾àÀëºÍÇ°Çı¶¥µã
+			index = vv.updateArr();//é€‰æ‹©è·ç¦»æœ€è¿‘çš„ä¸‹ä¸€ä¸ªæ–°çš„è®¿é—®é¡¶ç‚¹
+			update(index);//æ›´æ–°indexé¡¶ç‚¹åˆ°å‘¨å›´é¡¶ç‚¹çš„è·ç¦»å’Œå‰é©±é¡¶ç‚¹
 		}
 	}
 	
 	
 	
-	//¸üĞÂindexÏÂ±ê¶¥µãµ½ÖÜÎ§¶¥µãµÄ¾àÀëºÍÖÜÎ§¶¥µãµÄÇ°Çı¶¥µã
+	//æ›´æ–°indexä¸‹æ ‡é¡¶ç‚¹åˆ°å‘¨å›´é¡¶ç‚¹çš„è·ç¦»å’Œå‘¨å›´é¡¶ç‚¹çš„å‰é©±é¡¶ç‚¹
 	public void update(int index) {
 		int len = 0;
-		//¸ù¾İ±éÀúÎÒÃÇµÄÁÚ½Ó¾ØÕóµÄmatrix[index]ĞĞ
+		//æ ¹æ®éå†æˆ‘ä»¬çš„é‚»æ¥çŸ©é˜µçš„matrix[index]è¡Œ
 		for(int j = 0; j < matrix[index].length; j++) {
-			//lenÊÇ³ö·¢¶¥µãµ½index¶¥µãµÄ¾àÀë+´Óindex¶¥µãµ½j¶¥µãµÄ¾àÀëÖ®ºÍ
+			//lenæ˜¯å‡ºå‘é¡¶ç‚¹åˆ°indexé¡¶ç‚¹çš„è·ç¦»+ä»indexé¡¶ç‚¹åˆ°jé¡¶ç‚¹çš„è·ç¦»ä¹‹å’Œ
 			len = vv.getDis(index) + matrix[index][j];
-			//Èç¹ûj¶¥µãÃ»ÓĞ±»·ÃÎÊ¹ı£¬²¢ÇÒlenĞ¡ÓÚ³ö·¢¶¥µãµ½j¶¥µãµÄ¾àÀë£¬Âú×ãÔò¸üĞÂ
+			//å¦‚æœjé¡¶ç‚¹æ²¡æœ‰è¢«è®¿é—®è¿‡ï¼Œå¹¶ä¸”lenå°äºå‡ºå‘é¡¶ç‚¹åˆ°jé¡¶ç‚¹çš„è·ç¦»ï¼Œæ»¡è¶³åˆ™æ›´æ–°
 			if(!vv.in(j) && len < vv.getDis(j)) {
-				vv.updatePre(j, index);//¸üĞÂj¶¥µãµÄÇ°ÇıÎªindex¶¥µã
-				vv.updateDis(j, len);//¸üĞÂ³ö·¢¶¥µãµ½j¶¥µãµÄ¾àÀë
+				vv.updatePre(j, index);//æ›´æ–°jé¡¶ç‚¹çš„å‰é©±ä¸ºindexé¡¶ç‚¹
+				vv.updateDis(j, len);//æ›´æ–°å‡ºå‘é¡¶ç‚¹åˆ°jé¡¶ç‚¹çš„è·ç¦»
 			}
 		}
 	}
@@ -100,52 +100,52 @@ class Graph{
 
 
 
-//´´½¨Ò»¸öVisitedVertexÀà£¬±íÊ¾ÒÑ¾­·ÃÎÊ¹ıµÄ¶¥µãµÄ¼¯ºÏ
+//åˆ›å»ºä¸€ä¸ªVisitedVertexç±»ï¼Œè¡¨ç¤ºå·²ç»è®¿é—®è¿‡çš„é¡¶ç‚¹çš„é›†åˆ
 class VisitedVertex{
-	//¼ÇÂ¼¸÷¸ö¶¥µãÊÇ·ñ·ÃÎÊ¹ı£¬1ÊÇÒÑ·ÃÎÊ£¬0ÊÇÎ´·ÃÎÊ£¬»á½øĞĞ¶¯Ì¬¸üĞÂ
+	//è®°å½•å„ä¸ªé¡¶ç‚¹æ˜¯å¦è®¿é—®è¿‡ï¼Œ1æ˜¯å·²è®¿é—®ï¼Œ0æ˜¯æœªè®¿é—®ï¼Œä¼šè¿›è¡ŒåŠ¨æ€æ›´æ–°
 	public int[] already_arr;
-	//Ã¿¸öÏÂ±ê¶ÔÓ¦µÄÖµÎªÇ°Ò»¸ö¶¥µãµÄÏÂ±ê£¬»á½øĞĞ¶¯Ì¬¸üĞÂ
+	//æ¯ä¸ªä¸‹æ ‡å¯¹åº”çš„å€¼ä¸ºå‰ä¸€ä¸ªé¡¶ç‚¹çš„ä¸‹æ ‡ï¼Œä¼šè¿›è¡ŒåŠ¨æ€æ›´æ–°
 	public int[] pre_visited;
-	//¼ÇÂ¼³ö·¢¶¥µãµ½ÆäËûËùÓĞ¶¥µãÖ®¼äµÄ¾àÀë£¬»á½øĞĞ¶¯Ì¬¸üĞÂ
+	//è®°å½•å‡ºå‘é¡¶ç‚¹åˆ°å…¶ä»–æ‰€æœ‰é¡¶ç‚¹ä¹‹é—´çš„è·ç¦»ï¼Œä¼šè¿›è¡ŒåŠ¨æ€æ›´æ–°
 	public int[] dis;
 	
-	//¹¹ÔìÆ÷
+	//æ„é€ å™¨
 	/**
-	 * ¹¹ÔìÆ÷
-	 * @param length	¶¥µãµÄ¸öÊı
-	 * @param index		³ö·¢¶¥µãµÄÏÂ±ê
+	 * æ„é€ å™¨
+	 * @param length	é¡¶ç‚¹çš„ä¸ªæ•°
+	 * @param index		å‡ºå‘é¡¶ç‚¹çš„ä¸‹æ ‡
 	 */
 	public VisitedVertex(int length, int index) {
 		this.already_arr = new int[length];
 		this.pre_visited = new int[length];
 		this.dis = new int[length];
 		
-		//³õÊ¼»¯
-		Arrays.fill(dis, 65535);//°ÑÊı×édisµÄÔªËØÖµÈ«²¿ÉèÖÃÎª65535
-		this.already_arr[index] = 1;//ÉèÖÃ³ö·¢¶¥µã±»·ÃÎÊ¹ı
-		this.dis[index] = 0;//°Ñ³ö·¢¶¥µãµ½³ö·¢µØµãµÄ¾àÀëĞŞ¸ÄÎª0
+		//åˆå§‹åŒ–
+		Arrays.fill(dis, 65535);//æŠŠæ•°ç»„disçš„å…ƒç´ å€¼å…¨éƒ¨è®¾ç½®ä¸º65535
+		this.already_arr[index] = 1;//è®¾ç½®å‡ºå‘é¡¶ç‚¹è¢«è®¿é—®è¿‡
+		this.dis[index] = 0;//æŠŠå‡ºå‘é¡¶ç‚¹åˆ°å‡ºå‘åœ°ç‚¹çš„è·ç¦»ä¿®æ”¹ä¸º0
 	}
 	
 	/**
-	 * ÅĞ¶Ïindex¶¥µãÊÇ·ñ±»·ÃÎÊ¹ı
-	 * @param index	ĞèÒªÅĞ¶ÏÊÇ·ñ±»·ÃÎÊ¹ıµÄ¶¥µãÏÂ±ê
-	 * @return	Èç¹û·ÃÎÊ¹ı·µ»Øtrue£¬Èç¹ûÃ»ÓĞÔò·µ»Øfalse
+	 * åˆ¤æ–­indexé¡¶ç‚¹æ˜¯å¦è¢«è®¿é—®è¿‡
+	 * @param index	éœ€è¦åˆ¤æ–­æ˜¯å¦è¢«è®¿é—®è¿‡çš„é¡¶ç‚¹ä¸‹æ ‡
+	 * @return	å¦‚æœè®¿é—®è¿‡è¿”å›trueï¼Œå¦‚æœæ²¡æœ‰åˆ™è¿”å›false
 	 */
 	public boolean in(int index) {
 		return already_arr[index] == 1;
 	}
 	
 	/**
-	 * ¸üĞÂ³ö·¢¶¥µãµ½index¶¥µãµÄ¾àÀëÎªlen
-	 * @param index	¶¥µã
-	 * @param len	¾àÀë
+	 * æ›´æ–°å‡ºå‘é¡¶ç‚¹åˆ°indexé¡¶ç‚¹çš„è·ç¦»ä¸ºlen
+	 * @param index	é¡¶ç‚¹
+	 * @param len	è·ç¦»
 	 */
 	public void updateDis(int index, int len) {
 		dis[index] = len;
 	}
 	
 	/**
-	 * ¸üĞÂpre¶¥µãµÄÇ°ÇıÎªindex¶¥µã
+	 * æ›´æ–°preé¡¶ç‚¹çš„å‰é©±ä¸ºindexé¡¶ç‚¹
 	 * @param pre
 	 * @param index
 	 */
@@ -154,14 +154,14 @@ class VisitedVertex{
 	}
 	
 	/**
-	 * ·µ»Ø³ö·¢¶¥µãµ½index¶¥µãµÄ¾àÀë
+	 * è¿”å›å‡ºå‘é¡¶ç‚¹åˆ°indexé¡¶ç‚¹çš„è·ç¦»
 	 * @param index
 	 */
 	public int getDis(int index) {
 		return dis[index];
 	}
 	
-	//¼ÌĞøÑ¡Ôñ²¢·µ»ØĞÂµÄ·ÃÎÊ¶¥µã£¬±ÈÈç±éÀúGµãºó£¬·¢ÏÖµ½A¾àÀë×î¶Ì£¬Ôò·µ»ØAµÄÏÂ±ê
+	//ç»§ç»­é€‰æ‹©å¹¶è¿”å›æ–°çš„è®¿é—®é¡¶ç‚¹ï¼Œæ¯”å¦‚éå†Gç‚¹åï¼Œå‘ç°åˆ°Aè·ç¦»æœ€çŸ­ï¼Œåˆ™è¿”å›Açš„ä¸‹æ ‡
 	public int updateArr() {
 		int min = 65535, index = 0;
 		for(int i = 0; i < already_arr.length; i++) {
@@ -170,25 +170,25 @@ class VisitedVertex{
 				index = i;
 			}
 		}
-		//¸üĞÂindex¶¥µã±»·ÃÎÊ¹ı
+		//æ›´æ–°indexé¡¶ç‚¹è¢«è®¿é—®è¿‡
 		already_arr[index] = 1;
 		return index;
 	}
 	
-	//ÏÔÊ¾×îºóµÄ½á¹û£¬¼´½«Èı¸öÊı×éµÄÇé¿öÊä³ö
+	//æ˜¾ç¤ºæœ€åçš„ç»“æœï¼Œå³å°†ä¸‰ä¸ªæ•°ç»„çš„æƒ…å†µè¾“å‡º
 	public void show() {
 		System.out.println("==============================");
-		//Êä³öalready_arr
+		//è¾“å‡ºalready_arr
 		for(int i : already_arr) {
 			System.out.print(i + " ");
 		}
 		System.out.println();
-		//Êä³öpre_visited
+		//è¾“å‡ºpre_visited
 		for(int i : pre_visited) {
 			System.out.print(i + " ");
 		}
 		System.out.println();
-		//Êä³ödis
+		//è¾“å‡ºdis
 		for(int i: dis) {
 			System.out.print(i + " ");
 		}

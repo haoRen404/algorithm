@@ -3,7 +3,7 @@ package kmp;
 public class ViolenceMatch {
 
 	public static void main(String[] args) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 		String str1 = "adsbdjbsjdbjdwbdjsbdjwud";
 		String str2 = "jdbgg";
 		
@@ -19,22 +19,22 @@ public class ViolenceMatch {
 		int s1Len = s1.length;
 		int s2Len = s2.length;
 		
-		int i = 0;//Ö¸Ïòstr1µÄË÷Òı
-		int j = 0;//Ö¸Ïòstr2µÄË÷Òı
+		int i = 0;//æŒ‡å‘str1çš„ç´¢å¼•
+		int j = 0;//æŒ‡å‘str2çš„ç´¢å¼•
 		
 		while(i < s1Len && j < s2Len) {
-			if(s1[i] == s2[j]) {//Æ¥Åä³É¹¦
+			if(s1[i] == s2[j]) {//åŒ¹é…æˆåŠŸ
 				i++;
 				j++;
-			}else {//Ã»ÓĞÆ¥Åä³É¹¦
-				//i»ØËİ£¬jÖÃ0
+			}else {//æ²¡æœ‰åŒ¹é…æˆåŠŸ
+				//iå›æº¯ï¼Œjç½®0
 				i = i - (j - 1);
 				j = 0;
 			}
 			
 		}
 		
-		//ÅĞ¶ÏÊÇ·ñÆ¥Åä³É¹¦
+		//åˆ¤æ–­æ˜¯å¦åŒ¹é…æˆåŠŸ
 		if(j == s2Len) {
 			return i - j;
 		}else {

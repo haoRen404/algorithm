@@ -3,8 +3,8 @@ package kmp;
 public class KMPAlgorithm {
 
 	public static void main(String[] args) {
-		//KMPËã·¨
-		//Ì«ÄÑÁË£¬²»»á°¡
+		//KMPç®—æ³•
+		//å¤ªéš¾äº†ï¼Œä¸ä¼šå•Š
 
 	}
 
